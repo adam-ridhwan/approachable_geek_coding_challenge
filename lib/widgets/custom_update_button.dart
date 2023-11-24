@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 
 class CustomGlowButton extends StatelessWidget {
-  final String buttonText;
   final bool isLoading;
   final VoidCallback onPressed;
 
   const CustomGlowButton({
     Key? key,
-    required this.buttonText,
     required this.isLoading,
     required this.onPressed,
   }) : super(key: key);
@@ -27,7 +25,7 @@ class CustomGlowButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              buttonText,
+              isLoading ? 'Updating...' : 'Update',
               style: const TextStyle(
                 letterSpacing: -0.5,
                 fontSize: 16,

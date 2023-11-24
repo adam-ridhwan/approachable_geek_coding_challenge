@@ -116,11 +116,7 @@ class _EditNamePageState extends State<EditNamePage> {
                   ),
                   const SizedBox(height: 300),
                   CustomGlowButton(
-                      buttonText: isLoading ? 'Updating...' : 'Update',
-                      isLoading: isLoading,
-                      onPressed: () {
-                        _handleUpdateName(context);
-                      }),
+                      isLoading: isLoading, onPressed: () => _handleUpdateName(context)),
                 ],
               ),
             ),

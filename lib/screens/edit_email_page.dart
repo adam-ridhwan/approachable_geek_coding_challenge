@@ -110,7 +110,6 @@ class _EditEmailPageState extends State<EditEmailPage> {
                   ),
                   const SizedBox(height: 300),
                   CustomGlowButton(
-                      buttonText: isLoading ? 'Updating...' : 'Update',
                       isLoading: isLoading,
                       onPressed: () {
                         _handleUpdateName(context);

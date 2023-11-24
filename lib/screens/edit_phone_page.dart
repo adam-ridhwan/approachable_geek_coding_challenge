@@ -8,9 +8,7 @@ class EditPhonePage extends StatefulWidget {
   final String phone;
   final Function(String) updatePhone;
 
-  const EditPhonePage(
-      {Key? key, required this.phone, required this.updatePhone})
-      : super(key: key);
+  const EditPhonePage({Key? key, required this.phone, required this.updatePhone}) : super(key: key);
 
   @override
   _EditPhonePageState createState() => _EditPhonePageState();
@@ -107,7 +105,6 @@ class _EditPhonePageState extends State<EditPhonePage> {
                   ),
                   const SizedBox(height: 300),
                   CustomGlowButton(
-                      buttonText: isLoading ? 'Updating...' : 'Update',
                       isLoading: isLoading,
                       onPressed: () {
                         _handleUpdateName(context);

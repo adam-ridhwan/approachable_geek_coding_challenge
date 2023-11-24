@@ -20,6 +20,9 @@ class _MyAppState extends State<MyApp> {
   String lastName = 'Ridhwan';
   String phone = '(208) 206-5039';
   String email = 'adamridhwan.1@gmail.com';
+  String bio = 'Hi my nma eis Mica Smith. I am from Mesa but go to school in Salt Lake City. \n '
+      'I make this drive all the time '
+      'and have plenty';
 
   void updateName(String firstName, String lastName) {
     setState(() {
@@ -40,119 +43,34 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void updateBio(String bio) {
+    setState(() {
+      this.bio = bio;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView(children: <Widget>[
-          const SizedBox(height: 20),
-          _headerText(),
-          _listTile(),
-          const SizedBox(height: 30),
-          Builder(builder: (context) {
-            return _buildListTile(
-              label: 'Name',
-              text: '$firstName $lastName',
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          EditNamePage(
-                            firstName: firstName,
-                            lastName: lastName,
-                            updateName: updateName,
-                          ),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                      transitionDuration: const Duration(milliseconds: 200)),
-                );
-              },
-            );
-          }),
-          Builder(builder: (context) {
-            return _buildListTile(
-              label: 'Phone',
-              text: phone,
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          EditPhonePage(phone: phone, updatePhone: updatePhone),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                      transitionDuration: const Duration(milliseconds: 200)),
-                );
-              },
-            );
-          }),
-          Builder(builder: (context) {
-            return _buildListTile(
-              label: 'Email',
-              text: email,
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          EditEmailPage(email: email, updateEmail: updateEmail),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                      transitionDuration: const Duration(milliseconds: 200)),
-                );
-              },
-            );
-          }),
-          Builder(builder: (context) {
-            return _buildListTile(
-              label: 'Tell us about yourself',
-              text: 'Hi my name is Micah Smith. I am from Mesa but go to '
-                  'school in Salt Lake City. \n I make this drive all the time '
-                  'and have 5plenty',
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const EditBioPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                      transitionDuration: const Duration(milliseconds: 200)),
-                );
-              }, // Handle bio edit
-            );
-          }),
-        ]),
-      )),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ListView(
+            children: <Widget>[
+              _headerText(),
+              _avatarImage(),
+              _editProfileList(context),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  /// ────────────────────────────────────────────────────────────
-  /// Edit profile text
-  /// ────────────────────────────────────────────────────────────
   Widget _headerText() {
     return Container(
-      margin: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+      margin: const EdgeInsets.only(top: 50.0, bottom: 20.0),
       child: const Center(
         child: Text(
           'Edit Profile',
@@ -167,25 +85,16 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  /// ────────────────────────────────────────────────────────────
-  /// Avatar image
-  /// ────────────────────────────────────────────────────────────
-  Widget _listTile() {
+  Widget _avatarImage() {
     return Center(
       child: Stack(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.indigoAccent,
-                width: 5.0, // Border width
-              ),
+              border: Border.all(color: Colors.indigoAccent, width: 5.0),
               shape: BoxShape.circle,
             ),
-            child: const CircleAvatar(
-              radius: 70,
-              backgroundImage: NetworkImage(''),
-            ),
+            child: const CircleAvatar(radius: 70, backgroundImage: AssetImage('assets/avatar.png')),
           ),
           Positioned(
             top: 0,
@@ -193,10 +102,7 @@ class _MyAppState extends State<MyApp> {
             child: Container(
               height: 40,
               width: 40,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
+              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
               child: const Icon(Icons.edit, color: Colors.indigoAccent),
             ),
           ),
@@ -205,62 +111,117 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  /// ────────────────────────────────────────────────────────────
-  /// Inputs
-  /// ────────────────────────────────────────────────────────────
-  Widget _buildListTile({
-    required String label,
-    required String text,
-    required VoidCallback onTap,
-  }) {
+  Widget _editProfileList(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey.withOpacity(0.3),
-            // Adjust color and thickness as needed
-            width: 1.0,
-          ),
-        ),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      label,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade400,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.2,
-                      ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      text,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.arrow_forward_ios,
-                  color: Colors.grey.shade400, size: 20.0),
-            ],
-          ),
-        ),
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: profileEditOptions.map((item) => _editProfileItem(context, item)).toList(),
       ),
     );
   }
+
+  Widget _editProfileItem(BuildContext context, ProfileItem item) {
+    return Builder(builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.3), width: 1.0)),
+        ),
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => item.editPageBuilder(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+                transitionDuration: const Duration(milliseconds: 200),
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.label,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey.shade400,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Text(
+                        item.text,
+                        maxLines: 3,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.arrow_forward_ios, color: Colors.grey.shade400, size: 20.0),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+  }
+
+  List<ProfileItem> get profileEditOptions => [
+        ProfileItem(
+          label: 'Name',
+          text: '$firstName $lastName',
+          editPageBuilder: () => EditNamePage(
+            firstName: firstName,
+            lastName: lastName,
+            updateName: updateName,
+          ),
+        ),
+        ProfileItem(
+          label: 'Phone',
+          text: phone,
+          editPageBuilder: () => EditPhonePage(
+            phone: phone,
+            updatePhone: updatePhone,
+          ),
+        ),
+        ProfileItem(
+          label: 'Email',
+          text: email,
+          editPageBuilder: () => EditEmailPage(
+            email: email,
+            updateEmail: updateEmail,
+          ),
+        ),
+        ProfileItem(
+          label: 'Tell us about yourself',
+          text: bio,
+          editPageBuilder: () => EditBioPage(
+            bio: bio,
+            updateBio: updateBio,
+          ),
+        ),
+      ];
+}
+
+class ProfileItem {
+  final String label;
+  final String text;
+  final Widget Function() editPageBuilder;
+
+  ProfileItem({
+    required this.label,
+    required this.text,
+    required this.editPageBuilder,
+  });
 }
