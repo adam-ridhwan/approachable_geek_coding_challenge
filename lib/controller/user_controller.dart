@@ -22,6 +22,8 @@ class UserController {
       case 'bio':
         user.bio = value;
         break;
+      case 'image':
+        user.image = value;
     }
   }
 

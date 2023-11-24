@@ -83,8 +83,12 @@ class _MyAppState extends State<MyApp> {
           onTap: () {
             Navigator.of(context).push(
               PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    EditPhotoPage(image: userController.user.image),
+                pageBuilder: (context, animation, secondaryAnimation) => EditPhotoPage(
+                  image: userController.user.image,
+                  // updateUserProfile: (String newImage) {
+                  //   updateUserProfile({'image': newImage});
+                  // },
+                ),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
                 transitionDuration: const Duration(milliseconds: 200),
