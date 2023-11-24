@@ -6,13 +6,13 @@ import 'package:flutter_learn_the_basics/widgets/custom_update_button.dart';
 class EditNamePage extends StatefulWidget {
   final String firstName;
   final String lastName;
-  final Function(String, String) updateName;
+  final Function(String, String) updateUserProfile;
 
   const EditNamePage({
     Key? key,
     required this.firstName,
     required this.lastName,
-    required this.updateName,
+    required this.updateUserProfile,
   }) : super(key: key);
 
   @override
@@ -68,7 +68,7 @@ class _EditNamePageState extends State<EditNamePage> {
       String updatedLastName = lastNameController.text;
 
       // Update the name
-      widget.updateName(updatedFirstName, updatedLastName);
+      widget.updateUserProfile(updatedFirstName, updatedLastName);
     } finally {
       if (mounted) {
         setState(() {

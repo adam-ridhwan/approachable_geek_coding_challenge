@@ -5,12 +5,12 @@ import 'package:flutter_learn_the_basics/widgets/custom_update_button.dart';
 
 class EditBioPage extends StatefulWidget {
   final String bio;
-  final Function(String) updateBio;
+  final Function(String) updateUserProfile;
 
   const EditBioPage({
     Key? key,
     required this.bio,
-    required this.updateBio,
+    required this.updateUserProfile,
   }) : super(key: key);
 
   @override
@@ -55,7 +55,7 @@ class _EditBioPageState extends State<EditBioPage> {
       }
 
       // Update the bio
-      widget.updateBio(bioController.text);
+      widget.updateUserProfile(bioController.text);
     } finally {
       if (mounted) {
         setState(() {

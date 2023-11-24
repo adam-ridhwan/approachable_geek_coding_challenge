@@ -6,9 +6,10 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class EditPhonePage extends StatefulWidget {
   final String phone;
-  final Function(String) updatePhone;
+  final Function(String) updateUserProfile;
 
-  const EditPhonePage({Key? key, required this.phone, required this.updatePhone}) : super(key: key);
+  const EditPhonePage({Key? key, required this.phone, required this.updateUserProfile})
+      : super(key: key);
 
   @override
   _EditPhonePageState createState() => _EditPhonePageState();
@@ -63,7 +64,7 @@ class _EditPhonePageState extends State<EditPhonePage> {
       }
 
       // Update the phone
-      widget.updatePhone(phoneController.text);
+      widget.updateUserProfile(phoneController.text);
     } finally {
       if (mounted) {
         setState(() {

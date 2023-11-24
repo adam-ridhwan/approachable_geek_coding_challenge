@@ -5,12 +5,12 @@ import 'package:flutter_learn_the_basics/widgets/custom_update_button.dart';
 
 class EditEmailPage extends StatefulWidget {
   final String email;
-  final Function(String email) updateEmail;
+  final Function(String email) updateUserProfile;
 
   const EditEmailPage({
     Key? key,
     required this.email,
-    required this.updateEmail,
+    required this.updateUserProfile,
   }) : super(key: key);
 
   @override
@@ -69,7 +69,7 @@ class _EditEmailPageState extends State<EditEmailPage> {
       }
 
       // Update the email
-      widget.updateEmail(emailController.text);
+      widget.updateUserProfile(emailController.text);
     } finally {
       if (mounted) {
         setState(() {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learn_the_basics/controller/user_controller.dart';
+import 'package:flutter_learn_the_basics/models/user.dart';
+import 'package:flutter_learn_the_basics/screens/edit_bio_page.dart';
+import 'package:flutter_learn_the_basics/screens/edit_email_page.dart';
 import 'package:flutter_learn_the_basics/screens/edit_name_page.dart';
 import 'package:flutter_learn_the_basics/screens/edit_phone_page.dart';
-import 'package:flutter_learn_the_basics/screens/edit_email_page.dart';
-import 'package:flutter_learn_the_basics/screens/edit_bio_page.dart';
+import 'package:flutter_learn_the_basics/screens/edit_photo_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,37 +19,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String firstName = 'Adam';
-  String lastName = 'Ridhwan';
-  String phone = '(208) 206-5039';
-  String email = 'adamridhwan.1@gmail.com';
-  String bio = 'Hi my nma eis Mica Smith. I am from Mesa but go to school in Salt Lake City. \n '
-      'I make this drive all the time '
-      'and have plenty';
+  late final UserController userController;
 
-  void updateName(String firstName, String lastName) {
-    setState(() {
-      this.firstName = firstName;
-      this.lastName = lastName;
-    });
+  @override
+  void initState() {
+    super.initState();
+    userController = UserController(
+      User(
+        firstName: 'Adam',
+        lastName: 'Ridhwan',
+        phone: '(208) 206-5039',
+        email: 'adamridhwan.1@gmail.com',
+        bio: 'Hi my name is Adam Ridhwan. I like playing badminton and eating good food.',
+        image: 'assets/avatar.png',
+      ),
+    );
   }
 
-  void updatePhone(String phone) {
-    setState(() {
-      this.phone = phone;
-    });
-  }
-
-  void updateEmail(String email) {
-    setState(() {
-      this.email = email;
-    });
-  }
-
-  void updateBio(String bio) {
-    setState(() {
-      this.bio = bio;
-    });
+  void updateUserProfile(Map<String, String> updates) {
+    setState(() => userController.updateAttributes(updates));
   }
 
   @override
@@ -59,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           child: ListView(
             children: <Widget>[
               _headerText(),
-              _avatarImage(),
+              _avatarImage(context),
               _editProfileList(context),
             ],
           ),
@@ -85,30 +76,46 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _avatarImage() {
-    return Center(
-      child: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.indigoAccent, width: 5.0),
-              shape: BoxShape.circle,
-            ),
-            child: const CircleAvatar(radius: 70, backgroundImage: AssetImage('assets/avatar.png')),
+  Widget _avatarImage(BuildContext context) {
+    return Builder(builder: (context) {
+      return Center(
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    EditPhotoPage(image: userController.user.image),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+                transitionDuration: const Duration(milliseconds: 200),
+              ),
+            );
+          },
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.indigoAccent, width: 5.0),
+                  shape: BoxShape.circle,
+                ),
+                child: CircleAvatar(
+                    radius: 70, backgroundImage: AssetImage(userController.user.image)),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                  child: const Icon(Icons.edit, color: Colors.indigoAccent),
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-              child: const Icon(Icons.edit, color: Colors.indigoAccent),
-            ),
-          ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 
   Widget _editProfileList(BuildContext context) {
@@ -180,35 +187,43 @@ class _MyAppState extends State<MyApp> {
   List<ProfileItem> get profileEditOptions => [
         ProfileItem(
           label: 'Name',
-          text: '$firstName $lastName',
+          text: '${userController.user.firstName} ${userController.user.lastName}',
           editPageBuilder: () => EditNamePage(
-            firstName: firstName,
-            lastName: lastName,
-            updateName: updateName,
+            firstName: userController.user.firstName,
+            lastName: userController.user.lastName,
+            updateUserProfile: (String newFirstName, String newLastName) {
+              updateUserProfile({'firstName': newFirstName, 'lastName': newLastName});
+            },
           ),
         ),
         ProfileItem(
           label: 'Phone',
-          text: phone,
+          text: userController.user.phone,
           editPageBuilder: () => EditPhonePage(
-            phone: phone,
-            updatePhone: updatePhone,
+            phone: userController.user.phone,
+            updateUserProfile: (String newPhone) {
+              updateUserProfile({'phone': newPhone});
+            },
           ),
         ),
         ProfileItem(
           label: 'Email',
-          text: email,
+          text: userController.user.email,
           editPageBuilder: () => EditEmailPage(
-            email: email,
-            updateEmail: updateEmail,
+            email: userController.user.email,
+            updateUserProfile: (String newEmail) {
+              updateUserProfile({'email': newEmail});
+            },
           ),
         ),
         ProfileItem(
           label: 'Tell us about yourself',
-          text: bio,
+          text: userController.user.bio,
           editPageBuilder: () => EditBioPage(
-            bio: bio,
-            updateBio: updateBio,
+            bio: userController.user.bio,
+            updateUserProfile: (String newBio) {
+              updateUserProfile({'bio': newBio});
+            },
           ),
         ),
       ];
