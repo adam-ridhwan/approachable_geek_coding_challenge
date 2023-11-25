@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_the_basics/controller/user_controller.dart';
+import 'package:flutter_learn_the_basics/controllers/user_controller.dart';
+import 'package:flutter_learn_the_basics/models/profile_item.dart';
 import 'package:flutter_learn_the_basics/models/user.dart';
 import 'package:flutter_learn_the_basics/screens/edit_bio_page.dart';
 import 'package:flutter_learn_the_basics/screens/edit_email_page.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late final UserController userController;
 
+  // Initialize User
   @override
   void initState() {
     super.initState();
@@ -34,10 +36,6 @@ class _MyAppState extends State<MyApp> {
         image: 'assets/avatar.png',
       ),
     );
-  }
-
-  void updateUserProfile(Map<String, String> updates) {
-    setState(() => userController.updateAttributes(updates));
   }
 
   @override
@@ -59,6 +57,14 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  // Updates the User attributes
+  void updateUserProfile(Map<String, String> updates) {
+    setState(() => userController.updateAttributes(updates));
+  }
+
+  /// Creates a header text widget for the profile editing screen.
+  ///
+  /// Returns a [Widget] that displays the styled header text for the profile editing screen.
   Widget _headerText() {
     return Container(
       margin: const EdgeInsets.only(top: 50.0, bottom: 20.0),
@@ -76,6 +82,13 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  /// Creates an avatar image widget with an edit icon that allows users to tap on the avatar,
+  /// which navigates the user to the corresponding edit page.
+  ///
+  /// The [context] parameter is the build context for the widget. It is used to handle
+  /// navigation when the avatar is tapped.
+  ///
+  /// Returns a [Widget] that displays the user's avatar image with an edit icon.
   Widget _avatarImage(BuildContext context) {
     return Builder(builder: (context) {
       return Center(
@@ -122,6 +135,19 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  /// Builds a list of tappable containers for editing user profile attributes.
+  ///
+  /// Iterates through `profileEditOptions` to create a list of widgets, each representing
+  /// an editable profile attribute. Tapping on an item navigates the user to the corresponding
+  /// edit page for that attribute.
+  ///
+  /// This widget is typically used in a user profile editing screen where multiple
+  /// attributes (like name, phone, email, etc.) can be edited.
+  ///
+  /// The [context] parameter is the build context for the widget and is used to
+  /// navigate to different editing screens when an item is tapped.
+  ///
+  /// Returns a [Widget] that displays a column of tappable profile attribute items.
   Widget _editProfileList(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -131,6 +157,28 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  /// Creates a tappable container for a profile item.
+  ///
+  /// This widget is used to display an editable profile attribute, such as
+  /// name, phone, or email, etc. Tapping on the container navigates the user
+  /// to the corresponding edit page for that attribute.
+  ///
+  /// The [context] parameter provides the build context for the widget.
+  /// The [item] parameter contains the data for the profile attribute,
+  /// including its label, current value, and the builder function for
+  /// its edit page.
+  ///
+  /// Returns a [Widget] that represents a styled, tappable container
+  /// for editing a profile attribute.
+  ///
+  /// Example:
+  /// ```
+  /// _editProfileItem(context, ProfileItem(
+  ///   label: 'Name',
+  ///   text: 'John Doe',
+  ///   editPageBuilder: () => EditNamePage(...),
+  /// ));
+  /// ```
   Widget _editProfileItem(BuildContext context, ProfileItem item) {
     return Builder(builder: (context) {
       return Container(
@@ -188,6 +236,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  // List of ProfileItem objects for editing user profile attributes.
+  // Each item includes a label for display, current text value, and a builder for the edit page.
   List<ProfileItem> get profileEditOptions => [
         ProfileItem(
           label: 'Name',
@@ -231,16 +281,4 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ];
-}
-
-class ProfileItem {
-  final String label;
-  final String text;
-  final Widget Function() editPageBuilder;
-
-  ProfileItem({
-    required this.label,
-    required this.text,
-    required this.editPageBuilder,
-  });
 }
