@@ -85,9 +85,9 @@ class _MyAppState extends State<MyApp> {
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) => EditPhotoPage(
                   image: userController.user.image,
-                  // updateUserProfile: (String newImage) {
-                  //   updateUserProfile({'image': newImage});
-                  // },
+                  updateUserProfile: (String newImage) {
+                    updateUserProfile({'image': newImage});
+                  },
                 ),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
