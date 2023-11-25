@@ -1,5 +1,5 @@
-name: flutter_learn_the_basics
-description: "A new Flutter project."
+name: approachable_geek_coding_challenge_adam_ridhwan
+description: "Approachable Geek Coding Challenge - Adam Ridhwan"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -36,7 +36,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
   flutter_glow: ^0.3.0
   font_awesome_flutter: ^10.6.0
   mask_text_input_formatter: ^2.6.0
