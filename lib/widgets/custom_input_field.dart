@@ -1,6 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// A custom input field widget for user text input.
+///
+/// This widget is designed to provide a customizable text input field with optional
+/// label and hint text. It supports multiline input and can be formatted with custom
+/// text input formatters. The widget can also show a loading state, which disables
+/// the input and reduces its opacity.
+///
+/// Parameters:
+/// - [String? label]: An optional label displayed above the text field. If null, no label is shown.
+/// - [String? hintText]: An optional hint text displayed within the text field when it is empty.
+/// - [TextEditingController controller]: The controller for the text field. Required.
+/// - [FocusNode focusNode]: The focus node for the text field. Required.
+/// - [bool isLoading]: Loading state that disables input when true.
+/// - [int? minLines]: The minimum number of lines for the text field. Defaults to 1.
+/// - [int? maxLines]: The maximum number of lines for the text field. Defaults to 1.
+/// - [List<TextInputFormatter>? inputFormatters]: Optional input formatters.
+///
+/// Example usage:
+/// ```
+/// CustomInputField(
+///   label: 'Username',
+///   hintText: 'Enter your username',
+///   controller: _usernameController,
+///   focusNode: _usernameFocusNode,
+///   isLoading: _isLoading,
+///   minLines: 1,
+///   maxLines: 3,
+///   inputFormatters: [FilteringTextInputFormatter.deny(RegExp('[ ]'))], // Example formatter
+/// );
+/// ```
 class CustomInputField extends StatelessWidget {
   final String? label;
   final String? hintText;
