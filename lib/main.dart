@@ -3,7 +3,7 @@ import 'package:approachable_geek_coding_challenge/models/profile_item.dart';
 import 'package:approachable_geek_coding_challenge/models/user.dart';
 import 'package:approachable_geek_coding_challenge/screens/edit_photo_page.dart';
 import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
-import 'package:approachable_geek_coding_challenge/utilities/profile_items.dart';
+import 'package:approachable_geek_coding_challenge/utilities/profile_edit_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
