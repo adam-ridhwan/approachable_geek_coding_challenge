@@ -1,16 +1,18 @@
+import 'package:approachable_geek_coding_challenge/controllers/user_controller.dart';
+import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
+import 'package:approachable_geek_coding_challenge/utilities/update_field.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_edit_page_header.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_update_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_edit_page_header.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_update_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class EditPhotoPage extends StatefulWidget {
   final String image;
-  final Function(String) updateUserProfile;
 
   const EditPhotoPage({
     Key? key,
     required this.image,
-    required this.updateUserProfile,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class EditPhotoPage extends StatefulWidget {
 }
 
 class _EditPhotoPageState extends State<EditPhotoPage> {
-  bool isLoading = false;
+  late final UserController userController;
 
   String image = '';
 
@@ -45,42 +47,14 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
     super.dispose();
   }
 
-  void _handleUpdatePhoto(BuildContext context) async {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      // Simulate a delay
-      await Future.delayed(const Duration(seconds: 2));
-
-      // Check if the widget is still mounted before updating
-      if (!mounted) {
-        return;
-      }
-
-      // Update the photo
-      widget.updateUserProfile(image);
-    } finally {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-
-      // Check if the widget is still mounted before navigating
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-    }
+  void _handleUpdatePhoto(BuildContext context) {
+    UpdateUtilities.updateProfileItem(context, {'image': image});
   }
 
   @override
   Widget build(BuildContext context) {
+    final loadingState = Provider.of<LoadingState>(context);
+
     double screenWidth = MediaQuery.of(context).size.width;
     double padding = 40;
 
@@ -96,36 +70,22 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
             Form(
               child: Column(
                 children: <Widget>[
-                  InkWell(
-                    onTap: _pickImage, // Call the image picker function on tap
-                    child: Container(
-                      height: screenWidth - (padding * 2),
-                      width: screenWidth,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey), // Optional border
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(image), // Replace with
-                          // your asset
-                          // image
-                        ), // Display nothing if no image selected
+                  Opacity(
+                    opacity: loadingState.isLoading ? 0.3 : 1,
+                    child: InkWell(
+                      onTap: loadingState.isLoading ? null : _pickImage,
+                      child: Container(
+                        height: screenWidth - (padding * 2),
+                        width: screenWidth,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
+                        ),
                       ),
                     ),
                   ),
-                  // Container(
-                  //   height: screenWidth - (padding * 2),
-                  //   width: screenWidth,
-                  //   decoration: BoxDecoration(
-                  //     border: Border.all(color: Colors.grey), // Optional border
-                  //     image: DecorationImage(
-                  //       fit: BoxFit.cover,
-                  //       image: AssetImage(widget.image), // Replace with your asset image
-                  //     ),
-                  //   ),
-                  // ),
                   const SizedBox(height: 50),
-                  CustomGlowButton(
-                      isLoading: isLoading, onPressed: () => _handleUpdatePhoto(context)),
+                  CustomGlowButton(onPressed: () => _handleUpdatePhoto(context)),
                 ],
               ),
             ),

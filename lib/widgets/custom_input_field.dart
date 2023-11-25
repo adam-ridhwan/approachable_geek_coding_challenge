@@ -1,5 +1,7 @@
+import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 /// A custom input field widget for user text input.
 ///
@@ -13,7 +15,6 @@ import 'package:flutter/services.dart';
 /// - [String? hintText]: An optional hint text displayed within the text field when it is empty.
 /// - [TextEditingController controller]: The controller for the text field. Required.
 /// - [FocusNode focusNode]: The focus node for the text field. Required.
-/// - [bool isLoading]: Loading state that disables input when true.
 /// - [int? minLines]: The minimum number of lines for the text field. Defaults to 1.
 /// - [int? maxLines]: The maximum number of lines for the text field. Defaults to 1.
 /// - [List<TextInputFormatter>? inputFormatters]: Optional input formatters.
@@ -36,7 +37,6 @@ class CustomInputField extends StatelessWidget {
   final String? hintText;
   final TextEditingController controller;
   final FocusNode focusNode;
-  final bool isLoading;
   final int? minLines;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
@@ -47,7 +47,6 @@ class CustomInputField extends StatelessWidget {
     this.hintText,
     required this.controller,
     required this.focusNode,
-    required this.isLoading,
     this.minLines,
     this.maxLines,
     this.inputFormatters,
@@ -55,11 +54,13 @@ class CustomInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loadingState = Provider.of<LoadingState>(context);
+
     return Expanded(
       child: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(focusNode),
         child: Opacity(
-          opacity: isLoading ? 0.5 : 1,
+          opacity: loadingState.isLoading ? 0.5 : 1,
           child: Container(
             // height: 70,
             padding: const EdgeInsets.all(8.0),
@@ -85,7 +86,7 @@ class CustomInputField extends StatelessWidget {
                   keyboardType: TextInputType.multiline,
                   minLines: minLines ?? 1,
                   maxLines: maxLines ?? 1,
-                  enabled: !isLoading,
+                  enabled: !loadingState.isLoading,
                   focusNode: focusNode,
                   controller: controller,
                   inputFormatters: inputFormatters,

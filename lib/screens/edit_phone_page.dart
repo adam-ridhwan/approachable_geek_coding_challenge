@@ -1,15 +1,20 @@
+import 'package:approachable_geek_coding_challenge/utilities/common_functions.dart';
+import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
+import 'package:approachable_geek_coding_challenge/utilities/update_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_edit_page_header.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_input_field.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_update_button.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_edit_page_header.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_input_field.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_update_button.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 
 class EditPhonePage extends StatefulWidget {
   final String phone;
-  final Function(String) updateUserProfile;
 
-  const EditPhonePage({Key? key, required this.phone, required this.updateUserProfile})
-      : super(key: key);
+  const EditPhonePage({
+    Key? key,
+    required this.phone,
+  }) : super(key: key);
 
   @override
   _EditPhonePageState createState() => _EditPhonePageState();
@@ -19,8 +24,6 @@ class _EditPhonePageState extends State<EditPhonePage> {
   late TextEditingController phoneController;
 
   final FocusNode phoneFocusNode = FocusNode();
-
-  bool isLoading = false;
 
   final maskFormatter = MaskTextInputFormatter(
     mask: '(###) ###-####',
@@ -45,38 +48,10 @@ class _EditPhonePageState extends State<EditPhonePage> {
     super.dispose();
   }
 
-  void _handleUpdateName(BuildContext context) async {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
+  void _handleUpdatePhone(BuildContext context) {
+    UpdateUtilities.updateProfileItem(context, {
+      'phone': phoneController.text,
     });
-
-    try {
-      // Simulate a delay
-      await Future.delayed(const Duration(seconds: 2));
-
-      // Check if the widget is still mounted before updating
-      if (!mounted) {
-        return;
-      }
-
-      // Update the phone
-      widget.updateUserProfile(phoneController.text);
-    } finally {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-
-      // Check if the widget is still mounted before navigating
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-    }
   }
 
   @override
@@ -100,16 +75,11 @@ class _EditPhonePageState extends State<EditPhonePage> {
                         inputFormatters: [maskFormatter],
                         controller: phoneController,
                         focusNode: phoneFocusNode,
-                        isLoading: isLoading,
                       ),
                     ],
                   ),
                   const SizedBox(height: 300),
-                  CustomGlowButton(
-                      isLoading: isLoading,
-                      onPressed: () {
-                        _handleUpdateName(context);
-                      }),
+                  CustomGlowButton(onPressed: () => _handleUpdatePhone(context)),
                 ],
               ),
             ),

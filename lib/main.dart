@@ -1,15 +1,33 @@
+import 'package:approachable_geek_coding_challenge/controllers/user_controller.dart';
+import 'package:approachable_geek_coding_challenge/models/profile_item.dart';
+import 'package:approachable_geek_coding_challenge/models/user.dart';
+import 'package:approachable_geek_coding_challenge/screens/edit_photo_page.dart';
+import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
+import 'package:approachable_geek_coding_challenge/utilities/profile_items.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_the_basics/controllers/user_controller.dart';
-import 'package:flutter_learn_the_basics/models/profile_item.dart';
-import 'package:flutter_learn_the_basics/models/user.dart';
-import 'package:flutter_learn_the_basics/screens/edit_bio_page.dart';
-import 'package:flutter_learn_the_basics/screens/edit_email_page.dart';
-import 'package:flutter_learn_the_basics/screens/edit_name_page.dart';
-import 'package:flutter_learn_the_basics/screens/edit_phone_page.dart';
-import 'package:flutter_learn_the_basics/screens/edit_photo_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LoadingState()),
+        ChangeNotifierProvider(
+          create: (context) => UserController(
+            User(
+              firstName: 'Adam',
+              lastName: 'Ridhwan',
+              phone: '(208) 206-5039',
+              email: 'adamridhwan.1@gmail.com',
+              bio: 'Hi my name is Adam Ridhwan. I like playing badminton and eating good food.',
+              image: 'assets/avatar.png',
+            ),
+          ),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -20,24 +38,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late final UserController userController;
-
-  // Initialize User
-  @override
-  void initState() {
-    super.initState();
-    userController = UserController(
-      User(
-        firstName: 'Adam',
-        lastName: 'Ridhwan',
-        phone: '(208) 206-5039',
-        email: 'adamridhwan.1@gmail.com',
-        bio: 'Hi my name is Adam Ridhwan. I like playing badminton and eating good food.',
-        image: 'assets/avatar.png',
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,11 +55,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-
-  // Updates the User attributes
-  void updateUserProfile(Map<String, String> updates) {
-    setState(() => userController.updateAttributes(updates));
   }
 
   /// Creates a header text widget for the profile editing screen.
@@ -90,6 +85,8 @@ class _MyAppState extends State<MyApp> {
   ///
   /// Returns a [Widget] that displays the user's avatar image with an edit icon.
   Widget _avatarImage(BuildContext context) {
+    final userController = Provider.of<UserController>(context);
+
     return Builder(builder: (context) {
       return Center(
         child: InkWell(
@@ -98,9 +95,6 @@ class _MyAppState extends State<MyApp> {
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) => EditPhotoPage(
                   image: userController.user.image,
-                  updateUserProfile: (String newImage) {
-                    updateUserProfile({'image': newImage});
-                  },
                 ),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) =>
                     FadeTransition(opacity: animation, child: child),
@@ -141,18 +135,14 @@ class _MyAppState extends State<MyApp> {
   /// an editable profile attribute. Tapping on an item navigates the user to the corresponding
   /// edit page for that attribute.
   ///
-  /// This widget is typically used in a user profile editing screen where multiple
-  /// attributes (like name, phone, email, etc.) can be edited.
-  ///
-  /// The [context] parameter is the build context for the widget and is used to
-  /// navigate to different editing screens when an item is tapped.
-  ///
   /// Returns a [Widget] that displays a column of tappable profile attribute items.
   Widget _editProfileList(BuildContext context) {
+    List<ProfileItem> items = profileEditOptions(context);
+
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
-        children: profileEditOptions.map((item) => _editProfileItem(context, item)).toList(),
+        children: items.map((item) => _editProfileItem(context, item)).toList(),
       ),
     );
   }
@@ -235,50 +225,4 @@ class _MyAppState extends State<MyApp> {
       );
     });
   }
-
-  // List of ProfileItem objects for editing user profile attributes.
-  // Each item includes a label for display, current text value, and a builder for the edit page.
-  List<ProfileItem> get profileEditOptions => [
-        ProfileItem(
-          label: 'Name',
-          text: '${userController.user.firstName} ${userController.user.lastName}',
-          editPageBuilder: () => EditNamePage(
-            firstName: userController.user.firstName,
-            lastName: userController.user.lastName,
-            updateUserProfile: (String newFirstName, String newLastName) {
-              updateUserProfile({'firstName': newFirstName, 'lastName': newLastName});
-            },
-          ),
-        ),
-        ProfileItem(
-          label: 'Phone',
-          text: userController.user.phone,
-          editPageBuilder: () => EditPhonePage(
-            phone: userController.user.phone,
-            updateUserProfile: (String newPhone) {
-              updateUserProfile({'phone': newPhone});
-            },
-          ),
-        ),
-        ProfileItem(
-          label: 'Email',
-          text: userController.user.email,
-          editPageBuilder: () => EditEmailPage(
-            email: userController.user.email,
-            updateUserProfile: (String newEmail) {
-              updateUserProfile({'email': newEmail});
-            },
-          ),
-        ),
-        ProfileItem(
-          label: 'Tell us about yourself',
-          text: userController.user.bio,
-          editPageBuilder: () => EditBioPage(
-            bio: userController.user.bio,
-            updateUserProfile: (String newBio) {
-              updateUserProfile({'bio': newBio});
-            },
-          ),
-        ),
-      ];
 }

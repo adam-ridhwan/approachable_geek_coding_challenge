@@ -1,18 +1,20 @@
+import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
+import 'package:approachable_geek_coding_challenge/utilities/update_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_edit_page_header.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_input_field.dart';
-import 'package:flutter_learn_the_basics/widgets/custom_update_button.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_edit_page_header.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_input_field.dart';
+import 'package:approachable_geek_coding_challenge/widgets/custom_update_button.dart';
+import 'package:approachable_geek_coding_challenge/utilities/common_functions.dart';
+import 'package:provider/provider.dart';
 
 class EditNamePage extends StatefulWidget {
   final String firstName;
   final String lastName;
-  final Function(String, String) updateUserProfile;
 
   const EditNamePage({
     Key? key,
     required this.firstName,
     required this.lastName,
-    required this.updateUserProfile,
   }) : super(key: key);
 
   @override
@@ -25,8 +27,6 @@ class _EditNamePageState extends State<EditNamePage> {
 
   final FocusNode firstNameFocusNode = FocusNode();
   final FocusNode lastNameFocusNode = FocusNode();
-
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -43,44 +43,11 @@ class _EditNamePageState extends State<EditNamePage> {
     super.dispose();
   }
 
-  void _handleUpdateName(BuildContext context) async {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
+  void _handleUpdateName(BuildContext context) {
+    UpdateUtilities.updateProfileItem(context, {
+      'firstName': firstNameController.text,
+      'lastName': lastNameController.text,
     });
-
-    try {
-      // Simulate a delay
-      await Future.delayed(const Duration(seconds: 2));
-
-      // Check if the widget is still mounted before updating
-      if (!mounted) {
-        return;
-      }
-
-      // Update the name
-
-      // Retrieve values from the controllers
-      String updatedFirstName = firstNameController.text;
-      String updatedLastName = lastNameController.text;
-
-      // Update the name
-      widget.updateUserProfile(updatedFirstName, updatedLastName);
-    } finally {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-
-      // Check if the widget is still mounted before navigating
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-    }
   }
 
   @override
@@ -103,20 +70,17 @@ class _EditNamePageState extends State<EditNamePage> {
                         label: 'First Name',
                         controller: firstNameController,
                         focusNode: firstNameFocusNode,
-                        isLoading: isLoading,
                       ),
                       const SizedBox(width: 16),
                       CustomInputField(
                         label: 'Last Name',
                         controller: lastNameController,
                         focusNode: lastNameFocusNode,
-                        isLoading: isLoading,
                       ),
                     ],
                   ),
                   const SizedBox(height: 300),
-                  CustomGlowButton(
-                      isLoading: isLoading, onPressed: () => _handleUpdateName(context)),
+                  CustomGlowButton(onPressed: () => _handleUpdateName(context)),
                 ],
               ),
             ),

@@ -1,4 +1,4 @@
-package com.example.flutter_learn_the_basics
+package com.example.approachable_geek_coding_challenge
 
 import io.flutter.embedding.android.FlutterActivity
 

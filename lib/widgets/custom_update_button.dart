@@ -1,5 +1,8 @@
+import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
 /// A custom glowing button widget with loading state support.
 ///
@@ -12,7 +15,6 @@ import 'package:flutter_glow/flutter_glow.dart';
 /// from the `flutter_glow` package.
 ///
 /// Parameters:
-/// - [bool isLoading]: Determines the button's state. If true, the button is disabled
 ///   and shows the loading text. If false, it functions as a normal button.
 /// - [VoidCallback onPressed]: The callback function that is called when the button
 ///   is pressed. This is required unless `isLoading` is true.
@@ -25,17 +27,17 @@ import 'package:flutter_glow/flutter_glow.dart';
 /// );
 /// ```
 class CustomGlowButton extends StatelessWidget {
-  final bool isLoading;
   final VoidCallback onPressed;
 
   const CustomGlowButton({
     Key? key,
-    required this.isLoading,
     required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final loadingState = Provider.of<LoadingState>(context);
+
     return SizedBox(
       width: double.infinity,
       height: 60,
@@ -43,12 +45,18 @@ class CustomGlowButton extends StatelessWidget {
         disableColor: Colors.grey.shade700,
         color: Colors.black,
         borderRadius: BorderRadius.zero,
-        onPressed: isLoading ? null : onPressed,
+        onPressed: loadingState.isLoading ? null : onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            loadingState.isLoading
+                ? const SpinKitPulse(
+                    color: Colors.white,
+                    size: 30.0,
+                  )
+                : Container(),
             Text(
-              isLoading ? 'Updating...' : 'Update',
+              loadingState.isLoading ? 'Updating...' : 'Update',
               style: const TextStyle(
                 letterSpacing: -0.5,
                 fontSize: 16,
