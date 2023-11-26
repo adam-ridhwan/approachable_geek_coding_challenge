@@ -1,11 +1,8 @@
-import 'package:approachable_geek_coding_challenge/utilities/common_functions.dart';
-import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
-import 'package:approachable_geek_coding_challenge/utilities/update_field.dart';
-import 'package:flutter/material.dart';
+import 'package:approachable_geek_coding_challenge/utilities/update_profile_attribute_utility.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_edit_page_header.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_input_field.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_update_button.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class EditEmailPage extends StatefulWidget {
   final String email;
@@ -49,7 +46,7 @@ class _EditEmailPageState extends State<EditEmailPage> {
   }
 
   void _handleUpdateEmail(BuildContext context) {
-    UpdateUtilities.updateProfileItem(context, {
+    UpdateProfileAttributeUtility.updateProfileAttribute(context, {
       'email': emailController.text,
     });
   }

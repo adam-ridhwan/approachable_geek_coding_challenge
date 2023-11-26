@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoadingState with ChangeNotifier {
+class LoadingController with ChangeNotifier {
   bool isLoading = false;
-
-  // bool get isLoading => _isLoading;
-
-  // void setLoading(bool loading) {
-  //   _isLoading = loading;
-  //   notifyListeners();
-  // }
 
   void startLoader() {
     if (!isLoading) {

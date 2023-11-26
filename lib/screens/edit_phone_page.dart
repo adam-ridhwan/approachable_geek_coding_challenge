@@ -1,12 +1,9 @@
-import 'package:approachable_geek_coding_challenge/utilities/common_functions.dart';
-import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
-import 'package:approachable_geek_coding_challenge/utilities/update_field.dart';
-import 'package:flutter/material.dart';
+import 'package:approachable_geek_coding_challenge/utilities/update_profile_attribute_utility.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_edit_page_header.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_input_field.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_update_button.dart';
+import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:provider/provider.dart';
 
 class EditPhonePage extends StatefulWidget {
   final String phone;
@@ -43,13 +40,12 @@ class _EditPhonePageState extends State<EditPhonePage> {
 
   @override
   void dispose() {
-    // Dispose the controllers when the widget is disposed
-    phoneController.dispose();
     super.dispose();
+    phoneController.dispose();
   }
 
   void _handleUpdatePhone(BuildContext context) {
-    UpdateUtilities.updateProfileItem(context, {
+    UpdateProfileAttributeUtility.updateProfileAttribute(context, {
       'phone': phoneController.text,
     });
   }

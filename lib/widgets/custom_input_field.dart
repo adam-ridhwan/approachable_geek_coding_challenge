@@ -1,4 +1,4 @@
-import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
+import 'package:approachable_geek_coding_challenge/controllers/loading_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -54,13 +54,13 @@ class CustomInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loadingState = Provider.of<LoadingState>(context);
+    final loadingController = Provider.of<LoadingController>(context);
 
     return Expanded(
       child: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(focusNode),
         child: Opacity(
-          opacity: loadingState.isLoading ? 0.5 : 1,
+          opacity: loadingController.isLoading ? 0.5 : 1,
           child: Container(
             // height: 70,
             padding: const EdgeInsets.all(8.0),
@@ -86,7 +86,7 @@ class CustomInputField extends StatelessWidget {
                   keyboardType: TextInputType.multiline,
                   minLines: minLines ?? 1,
                   maxLines: maxLines ?? 1,
-                  enabled: !loadingState.isLoading,
+                  enabled: !loadingController.isLoading,
                   focusNode: focusNode,
                   controller: controller,
                   inputFormatters: inputFormatters,

@@ -1,4 +1,4 @@
-import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
+import 'package:approachable_geek_coding_challenge/controllers/loading_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -36,7 +36,7 @@ class CustomGlowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loadingState = Provider.of<LoadingState>(context);
+    final loadingController = Provider.of<LoadingController>(context);
 
     return SizedBox(
       width: double.infinity,
@@ -45,18 +45,18 @@ class CustomGlowButton extends StatelessWidget {
         disableColor: Colors.grey.shade700,
         color: Colors.black,
         borderRadius: BorderRadius.zero,
-        onPressed: loadingState.isLoading ? null : onPressed,
+        onPressed: loadingController.isLoading ? null : onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            loadingState.isLoading
+            loadingController.isLoading
                 ? const SpinKitPulse(
                     color: Colors.white,
                     size: 30.0,
                   )
                 : Container(),
             Text(
-              loadingState.isLoading ? 'Updating...' : 'Update',
+              loadingController.isLoading ? 'Updating...' : 'Update',
               style: const TextStyle(
                 letterSpacing: -0.5,
                 fontSize: 16,

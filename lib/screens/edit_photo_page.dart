@@ -1,6 +1,6 @@
+import 'package:approachable_geek_coding_challenge/controllers/loading_controller.dart';
 import 'package:approachable_geek_coding_challenge/controllers/user_controller.dart';
-import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
-import 'package:approachable_geek_coding_challenge/utilities/update_field.dart';
+import 'package:approachable_geek_coding_challenge/utilities/update_profile_attribute_utility.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_edit_page_header.dart';
 import 'package:approachable_geek_coding_challenge/widgets/custom_update_button.dart';
 import 'package:flutter/material.dart';
@@ -42,18 +42,13 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
     image = widget.image;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void _handleUpdatePhoto(BuildContext context) {
-    UpdateUtilities.updateProfileItem(context, {'image': image});
+    UpdateProfileAttributeUtility.updateProfileAttribute(context, {'image': image});
   }
 
   @override
   Widget build(BuildContext context) {
-    final loadingState = Provider.of<LoadingState>(context);
+    final loadingController = Provider.of<LoadingController>(context);
 
     double screenWidth = MediaQuery.of(context).size.width;
     double padding = 40;
@@ -71,9 +66,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
               child: Column(
                 children: <Widget>[
                   Opacity(
-                    opacity: loadingState.isLoading ? 0.3 : 1,
+                    opacity: loadingController.isLoading ? 0.3 : 1,
                     child: InkWell(
-                      onTap: loadingState.isLoading ? null : _pickImage,
+                      onTap: loadingController.isLoading ? null : _pickImage,
                       child: Container(
                         height: screenWidth - (padding * 2),
                         width: screenWidth,

@@ -1,9 +1,9 @@
+import 'package:approachable_geek_coding_challenge/constants/edit_profile_attributes.dart';
 import 'package:approachable_geek_coding_challenge/controllers/user_controller.dart';
 import 'package:approachable_geek_coding_challenge/models/profile_item.dart';
 import 'package:approachable_geek_coding_challenge/models/user.dart';
 import 'package:approachable_geek_coding_challenge/screens/edit_photo_page.dart';
-import 'package:approachable_geek_coding_challenge/utilities/loading_state.dart';
-import 'package:approachable_geek_coding_challenge/utilities/profile_edit_options.dart';
+import 'package:approachable_geek_coding_challenge/controllers/loading_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => LoadingState()),
+        ChangeNotifierProvider(create: (context) => LoadingController()),
         ChangeNotifierProvider(
           create: (context) => UserController(
             User(
@@ -131,13 +131,13 @@ class _MyAppState extends State<MyApp> {
 
   /// Builds a list of tappable containers for editing user profile attributes.
   ///
-  /// Iterates through `profileEditOptions` to create a list of widgets, each representing
+  /// Iterates through `editProfileAttributes` to create a list of widgets, each representing
   /// an editable profile attribute. Tapping on an item navigates the user to the corresponding
   /// edit page for that attribute.
   ///
   /// Returns a [Widget] that displays a column of tappable profile attribute items.
   Widget _editProfileList(BuildContext context) {
-    List<ProfileItem> items = profileEditOptions(context);
+    List<ProfileItem> items = editProfileAttributes(context);
 
     return Container(
       padding: const EdgeInsets.all(10),

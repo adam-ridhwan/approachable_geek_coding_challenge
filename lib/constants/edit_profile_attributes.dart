@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 // List of ProfileItem objects for editing user profile attributes.
 // Each item includes a label for display, current text value, and a builder for the edit page.
-List<ProfileItem> profileEditOptions(BuildContext context) {
+List<ProfileItem> editProfileAttributes(BuildContext context) {
   final userController = Provider.of<UserController>(context);
 
   return [
