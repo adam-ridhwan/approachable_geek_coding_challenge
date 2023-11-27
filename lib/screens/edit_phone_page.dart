@@ -75,7 +75,7 @@ class _EditPhonePageState extends State<EditPhonePage> {
                     ],
                   ),
                   const SizedBox(height: 300),
-                  CustomGlowButton(onPressed: () => _handleUpdatePhone(context)),
+                  CustomUpdateButton(onPressed: () => _handleUpdatePhone(context)),
                 ],
               ),
             ),

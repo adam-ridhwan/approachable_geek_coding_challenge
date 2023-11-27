@@ -80,7 +80,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                     ),
                   ),
                   const SizedBox(height: 50),
-                  CustomGlowButton(onPressed: () => _handleUpdatePhoto(context)),
+                  CustomUpdateButton(onPressed: () => _handleUpdatePhoto(context)),
                 ],
               ),
             ),

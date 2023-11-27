@@ -68,7 +68,7 @@ class _EditBioPageState extends State<EditBioPage> {
                     ],
                   ),
                   const SizedBox(height: 180),
-                  CustomGlowButton(onPressed: () => _handleUpdateBio(context)),
+                  CustomUpdateButton(onPressed: () => _handleUpdateBio(context)),
                 ],
               ),
             ),

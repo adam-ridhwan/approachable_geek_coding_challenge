@@ -76,7 +76,7 @@ class _EditNamePageState extends State<EditNamePage> {
                     ],
                   ),
                   const SizedBox(height: 300),
-                  CustomGlowButton(onPressed: () => _handleUpdateName(context)),
+                  CustomUpdateButton(onPressed: () => _handleUpdateName(context)),
                 ],
               ),
             ),

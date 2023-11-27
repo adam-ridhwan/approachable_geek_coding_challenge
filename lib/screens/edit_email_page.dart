@@ -75,7 +75,7 @@ class _EditEmailPageState extends State<EditEmailPage> {
                     ],
                   ),
                   const SizedBox(height: 300),
-                  CustomGlowButton(onPressed: () => _handleUpdateEmail(context)),
+                  CustomUpdateButton(onPressed: () => _handleUpdateEmail(context)),
                 ],
               ),
             ),

@@ -21,15 +21,15 @@ import 'package:provider/provider.dart';
 ///
 /// Example usage:
 /// ```
-/// CustomGlowButton(
+/// CustomUpdateButton(
 ///   isLoading: _isLoading,
 ///   onPressed: _handleUpdate,
 /// );
 /// ```
-class CustomGlowButton extends StatelessWidget {
+class CustomUpdateButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const CustomGlowButton({
+  const CustomUpdateButton({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
