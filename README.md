@@ -230,7 +230,7 @@ Future<void> _pickImage() async {
 
 <br>
 
-### 3) Rendering list of profile attributes (name, phone, email, bio)
+### 3) Rendering list of profile attributes
 
 <img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/ee28fc1a-9a37-49b9-ae89-32ce277855cb" alt="usage" height="200">
 
