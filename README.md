@@ -2,13 +2,19 @@
 
 This repository contains the source code for the Approachable Geek Coding Challenge by **Adam Ridhwan**.
 
+<br>
+
 ## Project Description
 
 This project is a coding challenge and the task is to create a profile page, which allows users to navigate to an edit page that allows them to edit their profile information: name, number, email, and bio. Users are also able to edit their profile photo.
 
+<br>
+
 ## Technology Stack
 
 For this coding challenge, I used Flutter to create the profile page using MVC software pattern. I had no prior knowledge on Flutter before starting this project. So I had to spend a spend a day to learn the basics. I was able to pick it up pretty quickly and was able to completed the requirements for the coding challenge.
+
+<br>
 
 ## Getting Started
 
@@ -32,6 +38,8 @@ cd approachable_geek_coding_challenge
 flutter pub get
 ```
 
+<br>
+
 ## Usage
 
 Below is demo of how editing each profile attribute works. 
@@ -42,6 +50,7 @@ Below is demo of how editing each profile attribute works.
 
 </div>
 
+<br>
 
 ## Features
 
@@ -284,6 +293,8 @@ Widget _editProfileItem(BuildContext context, ProfileItem item) {
 }
 ```
 
+<br>
+
 ## Utilities
 
 1) I created a reusable `Navigator` that handles navigation to corresponding edit page, which also has the animation set.
@@ -360,7 +371,9 @@ class LoadingController with ChangeNotifier {
 }
 ```
 
-# Author 
+<br>
+
+## Author 
 
 - Adam Ridhwan
 - www.adamridhwan.com
