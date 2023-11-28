@@ -4,6 +4,7 @@ import 'package:approachable_geek_coding_challenge/models/profile_item.dart';
 import 'package:approachable_geek_coding_challenge/models/user.dart';
 import 'package:approachable_geek_coding_challenge/screens/edit_photo_page.dart';
 import 'package:approachable_geek_coding_challenge/controllers/loading_controller.dart';
+import 'package:approachable_geek_coding_challenge/utilities/navigate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -90,18 +91,7 @@ class _MyAppState extends State<MyApp> {
     return Builder(builder: (context) {
       return Center(
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) => EditPhotoPage(
-                  image: userController.user.image,
-                ),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(opacity: animation, child: child),
-                transitionDuration: const Duration(milliseconds: 200),
-              ),
-            );
-          },
+          onTap: () => navigate(context, EditPhotoPage(image: userController.user.image)),
           child: Stack(
             children: <Widget>[
               Container(
@@ -141,9 +131,7 @@ class _MyAppState extends State<MyApp> {
 
     return Container(
       padding: const EdgeInsets.all(10),
-      child: Column(
-        children: items.map((item) => _editProfileItem(context, item)).toList(),
-      ),
+      child: Column(children: items.map((item) => _editProfileItem(context, item)).toList()),
     );
   }
 
@@ -160,15 +148,6 @@ class _MyAppState extends State<MyApp> {
   ///
   /// Returns a [Widget] that represents a styled, tappable container
   /// for editing a profile attribute.
-  ///
-  /// Example:
-  /// ```
-  /// _editProfileItem(context, ProfileItem(
-  ///   label: 'Name',
-  ///   text: 'John Doe',
-  ///   editPageBuilder: () => EditNamePage(...),
-  /// ));
-  /// ```
   Widget _editProfileItem(BuildContext context, ProfileItem item) {
     return Builder(builder: (context) {
       return Container(
@@ -176,16 +155,7 @@ class _MyAppState extends State<MyApp> {
           border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.3), width: 1.0)),
         ),
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) => item.editPageBuilder(),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(opacity: animation, child: child),
-                transitionDuration: const Duration(milliseconds: 200),
-              ),
-            );
-          },
+          onTap: () => navigate(context, item.editPageBuilder()),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
             child: Row(
