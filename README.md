@@ -284,6 +284,92 @@ Widget _editProfileItem(BuildContext context, ProfileItem item) {
 }
 ```
 
+<br>
+<br>
+
+## Utilities
+
+### 1) I created a reusable `Navigator` that handles navigation to corresponding edit page, which also has the animation set.
+
+```dart
+void navigate(BuildContext context, Widget destinationPage) {
+  Navigator.of(context).push(
+    PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => destinationPage,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+      transitionDuration: const Duration(milliseconds: 200),
+    ),
+  );
+```
+
+### 2) I created a `Utility` function that handles updating the corresponding attribute. 
+
+```dart
+class UpdateProfileAttributeUtility {
+  static Future<void> updateProfileAttribute(
+    BuildContext context,
+    Map<String, String> itemsToUpdate,
+  ) async {
+    final userController = Provider.of<UserController>(context, listen: false);
+    final loadingController = Provider.of<LoadingController>(context, listen: false);
+
+    if (!context.mounted) {
+      return;
+    }
+
+    loadingController.startLoader();
+
+    try {
+      await fakeDelay(2);
+
+      if (!context.mounted) {
+        return;
+      }
+
+      userController.updateAttributes(itemsToUpdate);
+    } finally {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+
+      loadingController.stopLoader();
+    }
+  }
+}
+```
+
+### 3) I created a 'Loading' function & state to handle loading after update function is called.
+
+```dart
+import 'package:flutter/material.dart';
+
+class LoadingController with ChangeNotifier {
+  bool isLoading = false;
+
+  void startLoader() {
+    if (!isLoading) {
+      isLoading = true;
+      notifyListeners();
+    }
+  }
+
+  void stopLoader() {
+    if (isLoading) {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+}
+```
+
+<br>
+<br>
+
+# Author 
+
+- Adam Ridhwan
+- www.adamridhwan.com
 
 
 
