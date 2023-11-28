@@ -1,6 +1,6 @@
 # Approachable Geek Coding Challenge
 
-This repository contains the source code for the Approachable Geek Coding Challenge by Adam Ridhwan
+This repository contains the source code for the Approachable Geek Coding Challenge by **Adam Ridhwan**.
 
 ## Getting Started
 
