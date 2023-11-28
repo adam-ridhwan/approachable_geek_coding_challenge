@@ -36,11 +36,63 @@ flutter pub get
 
 Below is an example of how editing each profile attribute works. 
 
-<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/4f26abbd-d1a6-4a60-9f6f-dfbc384dec6a" alt="usage" height="720">
+<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/4f26abbd-d1a6-4a60-9f6f-dfbc384dec6a" alt="usage" height="600">
 
 ## Features
 
 Below are some code example on the features I implemented: 
+
+### Profile Picture 
+
+<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/02bc4412-5dcf-4cf3-93df-743ef883da1a" alt="usage" height="600">
+
+
+
+
+
+
+1) I first added an image to the assets folder:
+
+
+```dart
+  assets/avatar.png
+```
+
+2) I created an avatar image using `AssetImage`
+
+<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/e7a236b7-121b-49f1-9cc8-b9164c3c4015" alt="usage" height="100">
+
+```dart
+  Widget _avatarImage(BuildContext context) {
+    final userController = Provider.of<UserController>(context);
+
+    return Builder(builder: (context) {
+      return Center(
+        child: InkWell(
+          onTap: () => navigate(context, EditPhotoPage(image: userController.user.image)),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.indigoAccent, width: 5.0),
+                  shape: BoxShape.circle,
+                ),
+                child: CircleAvatar(
+                    radius: 70, backgroundImage: AssetImage(userController.user.image)),
+              ),
+              // ...
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+```
+
+3) 
+
 
 ### Rendering list of profile attributes (name, phone, email, bio)
 
@@ -87,7 +139,7 @@ List<ProfileItem> editProfileAttributes(BuildContext context) {
         phone: userController.user.phone,
       ),
     ),
-    // ... more items
+    // ...
 }
 ```
 
@@ -113,13 +165,13 @@ List<ProfileItem> editProfileAttributes(BuildContext context) {
         child: InkWell(
           onTap: () => navigate(context, item.editPageBuilder()),
         ),
-        // .. rest of code
+        // ...
       );
     });
   }
 ```
 
-### 
+
 
 
 
