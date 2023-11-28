@@ -34,9 +34,13 @@ flutter pub get
 
 ## Usage
 
-Below is an example of how editing each profile attribute works. 
+Below is demo of how editing each profile attribute works. 
 
-<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/6a5c4740-87d8-4e43-9306-4f2bdbe2a10e" alt="usage" height="720">
+<div align='center'>
+  
+  https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/94e3fbd6-f393-482c-aeaf-ec5caf287eb0
+
+</div>
 
 
 ## Features
