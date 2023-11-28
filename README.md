@@ -14,7 +14,7 @@ For this coding challenge, I used Flutter to create the profile page using MVC s
 
 These instructions will get you a copy of the project up and running on your machine for testing purposes.
 
-### Cloning the Repository
+### 1) Cloning the Repository
 
 To clone the project, run the following command in the terminal: 
 
@@ -22,7 +22,7 @@ To clone the project, run the following command in the terminal:
 git clone https://github.com/adam-ridhwan/approachable_geek_coding_challenge.git
 ```
 
-### Installing Dependencies 
+### 2) Installing Dependencies 
 
 Once the project is cloned, navigate to the project directory and run the following command to install all the 
 necessary dependencies:
@@ -142,12 +142,10 @@ void main() {
 ```
 
 <br>
-<br>
 
 ### 2) Changing Profile Picture
 
 <img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/20d52a96-643f-4f25-b3a6-23fe16612256" alt="changing profile picture" height="400">
-
 
 <br>
 <br>
@@ -208,7 +206,6 @@ Future<void> _pickImage() async {
 ```
 
 <br>
-<br>
 
 ### 3) Rendering list of profile attributes (name, phone, email, bio)
 
@@ -226,12 +223,11 @@ class ProfileItem {
   final Widget Function() editPageBuilder;
 
   ProfileItem({
-    required this.label,
-    required this.text,
-    required this.editPageBuilder,
+  required this.label,
+  required this.text,
+  required this.editPageBuilder,
   });
 }
-
 ```
 
 3b. I created a `List` that holds all of the attributes.
@@ -287,9 +283,6 @@ Widget _editProfileItem(BuildContext context, ProfileItem item) {
   });
 }
 ```
-
-<br>
-<br>
 
 ## Utilities
 
@@ -366,9 +359,6 @@ class LoadingController with ChangeNotifier {
   }
 }
 ```
-
-<br>
-<br>
 
 # Author 
 
