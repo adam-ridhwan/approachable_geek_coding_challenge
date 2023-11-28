@@ -32,7 +32,7 @@ cd approachable_geek_coding_challenge
 flutter pub get
 ```
 
-### Usage
+## Usage
 
 Below is an example of how editing each profile attribute works. 
 
