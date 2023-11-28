@@ -45,7 +45,7 @@ Below are some code example on the features I implemented:
 
 ### 1) The setup:
 
-#### 1a. I created the `User` model.
+1a. I created the `User` model.
 
 ```dart
 class User {
@@ -67,7 +67,7 @@ class User {
 }
 ```
 
-#### 1b. I created the `UserController` that handles the updating the `User` model.
+1b. I created the `UserController` that handles the updating the `User` model.
 
 ```dart
 import 'package:approachable_geek_coding_challenge/models/user.dart';
@@ -110,7 +110,7 @@ class UserController extends ChangeNotifier {
 }
 ```
 
-#### 1c. I initialized the default `User` in `main.dart`.
+1c. I initialized the default `User` in `main.dart`.
 
 ```dart
 void main() {
@@ -148,13 +148,13 @@ void main() {
 <br>
 <br>
 
-#### 2a. I first added an image to the assets folder:
+2a. I first added an image to the assets folder:
 
 ```dart
   assets/avatar.png
 ```
 
-#### 2b. I created an avatar image using `AssetImage`
+2b. I created an avatar image using `AssetImage`
 
 <img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/e7a236b7-121b-49f1-9cc8-b9164c3c4015" alt="usage" height="100">
 
@@ -186,7 +186,7 @@ Widget _avatarImage(BuildContext context) {
 }
 ```
 
-#### 2c. Used a library called `image_picker` to pick photos from phone gallery.
+2c. Used a library called `image_picker` to pick photos from phone gallery.
 
 ```dart
 String image = '';
@@ -213,7 +213,7 @@ Future<void> _pickImage() async {
 <br>
 <br>
 
-#### 3a. Firstly, I created a class that holds the label, text(value of attribute), the view of the corresponding attribute:
+3a. Firstly, I created a class that holds the label, text(value of attribute), the view of the corresponding attribute:
 
 ```dart
 class ProfileItem {
@@ -230,7 +230,7 @@ class ProfileItem {
 
 ```
 
-#### 3b. I created a `List` that holds all of the attributes.
+3b. I created a `List` that holds all of the attributes.
 
 ```dart
 List<ProfileItem> editProfileAttributes(BuildContext context) {
@@ -256,7 +256,7 @@ List<ProfileItem> editProfileAttributes(BuildContext context) {
 }
 ```
 
-#### 3c. I created a `container Widget` that maps over the list to create tappable `child Widgets`.
+3c. I created a `container Widget` that maps over the list to create tappable `child Widgets`.
 
 ```dart
 Widget _editProfileList(BuildContext context) {
@@ -269,7 +269,7 @@ Widget _editProfileList(BuildContext context) {
 }
 ```
 
-#### 3d. Tapping on the `child Widgets` (profile attribute - name, phone, email, bio) will navigate to its corresponding edit view.
+3d. Tapping on the `child Widgets` (profile attribute - name, phone, email, bio) will navigate to its corresponding edit view.
 
 ```dart
 Widget _editProfileItem(BuildContext context, ProfileItem item) {
@@ -289,7 +289,7 @@ Widget _editProfileItem(BuildContext context, ProfileItem item) {
 
 ## Utilities
 
-### 1) I created a reusable `Navigator` that handles navigation to corresponding edit page, which also has the animation set.
+1) I created a reusable `Navigator` that handles navigation to corresponding edit page, which also has the animation set.
 
 ```dart
 void navigate(BuildContext context, Widget destinationPage) {
@@ -303,7 +303,7 @@ void navigate(BuildContext context, Widget destinationPage) {
   );
 ```
 
-### 2) I created a `Utility` function that handles updating the corresponding attribute. 
+2) I created a `Utility` function that handles updating the corresponding attribute. 
 
 ```dart
 class UpdateProfileAttributeUtility {
@@ -339,7 +339,7 @@ class UpdateProfileAttributeUtility {
 }
 ```
 
-### 3) I created a 'Loading' function & state to handle loading after update function is called.
+3) I created a 'Loading' function & state to handle loading after update function is called.
 
 ```dart
 import 'package:flutter/material.dart';
