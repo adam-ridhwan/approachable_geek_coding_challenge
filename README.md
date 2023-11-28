@@ -4,6 +4,7 @@ This repository contains the source code for the Approachable Geek Coding Challe
 
 <br>
 
+Table of contents: -
 - [Project Description](#project-description)
 - [Technology Stack](#technology-stack)
 - [Getting Started](#getting-started)
