@@ -8,7 +8,7 @@ This project is a coding challenge and the task is to create a profile page, whi
 
 ## Technology Stack
 
-For this coding challenge, I used Flutter to create the profile page. I had no prior knowledge on Flutter before starting this project. So I had to spend a spend a day to learn the basics. I was able to pick it up pretty quickly and successfully completed the requirements for the coding challenge.
+For this coding challenge, I used Flutter to create the profile page using MVC software pattern. I had no prior knowledge on Flutter before starting this project. So I had to spend a spend a day to learn the basics. I was able to pick it up pretty quickly and was able to completed the requirements for the coding challenge.
 
 ## Getting Started
 
@@ -36,71 +36,184 @@ flutter pub get
 
 Below is an example of how editing each profile attribute works. 
 
-<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/4f26abbd-d1a6-4a60-9f6f-dfbc384dec6a" alt="usage" height="600">
+<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/6a5c4740-87d8-4e43-9306-4f2bdbe2a10e" alt="usage" height="720">
+
 
 ## Features
 
 Below are some code example on the features I implemented: 
 
-### Profile Picture 
+### 1) The setup:
 
-<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/02bc4412-5dcf-4cf3-93df-743ef883da1a" alt="usage" height="600">
+#### 1a. I created the `User` model.
+
+```dart
+class User {
+  String firstName;
+  String lastName;
+  String phone;
+  String email;
+  String bio;
+  String image;
+
+  User({
+    required this.firstName,
+    required this.lastName,
+    required this.phone,
+    required this.email,
+    required this.bio,
+    required this.image,
+  });
+}
+```
+
+#### 1b. I created the `UserController` that handles the updating the `User` model.
+
+```dart
+import 'package:approachable_geek_coding_challenge/models/user.dart';
+import 'package:flutter/foundation.dart';
+
+class UserController extends ChangeNotifier {
+  final User user;
+
+  UserController(this.user);
+
+  void updateAttribute(String key, String value) {
+    switch (key) {
+      case 'firstName':
+        user.firstName = value;
+        break;
+      case 'lastName':
+        user.lastName = value;
+        break;
+      case 'phone':
+        user.phone = value;
+        break;
+      case 'email':
+        user.email = value;
+        break;
+      case 'bio':
+        user.bio = value;
+        break;
+      case 'image':
+        user.image = value;
+    }
+    notifyListeners();
+  }
+
+  void updateAttributes(Map<String, String> updates) {
+    updates.forEach((key, value) {
+      updateAttribute(key, value);
+    });
+    notifyListeners();
+  }
+}
+```
+
+#### 1c. I initialized the default `User` in `main.dart`.
+
+```dart
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LoadingController()),
+        ChangeNotifierProvider(
+          create: (context) => UserController(
+            User(
+              firstName: 'Adam',
+              lastName: 'Ridhwan',
+              phone: '(208) 206-5039',
+              email: 'adamridhwan.1@gmail.com',
+              bio: 'Hi my name is Adam Ridhwan. I like playing badminton and eating good food.',
+              image: 'assets/avatar.png',
+            ),
+          ),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
+```
+
+<br>
+<br>
+
+### 2) Changing Profile Picture
+
+<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/20d52a96-643f-4f25-b3a6-23fe16612256" alt="changing profile picture" height="400">
 
 
+<br>
+<br>
 
-
-
-
-1) I first added an image to the assets folder:
-
+#### 2a. I first added an image to the assets folder:
 
 ```dart
   assets/avatar.png
 ```
 
-2) I created an avatar image using `AssetImage`
+#### 2b. I created an avatar image using `AssetImage`
 
 <img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/e7a236b7-121b-49f1-9cc8-b9164c3c4015" alt="usage" height="100">
 
 ```dart
-  Widget _avatarImage(BuildContext context) {
-    final userController = Provider.of<UserController>(context);
+Widget _avatarImage(BuildContext context) {
+  final userController = Provider.of<UserController>(context);
 
-    return Builder(builder: (context) {
-      return Center(
-        child: InkWell(
-          onTap: () => navigate(context, EditPhotoPage(image: userController.user.image)),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.indigoAccent, width: 5.0),
-                  shape: BoxShape.circle,
-                ),
-                child: CircleAvatar(
-                    radius: 70, backgroundImage: AssetImage(userController.user.image)),
+  return Builder(builder: (context) {
+    return Center(
+      child: InkWell(
+        onTap: () => navigate(context, EditPhotoPage(image: userController.user.image)),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.indigoAccent, width: 5.0),
+                shape: BoxShape.circle,
               ),
-              // ...
-              ),
-            ],
-          ),
+              child: CircleAvatar(
+                  radius: 70, backgroundImage: AssetImage(userController.user.image)),
+            ),
+            // ...
+            ),
+          ],
         ),
-      );
-    });
-  }
-
+      ),
+    );
+  });
+}
 ```
 
-3) 
+#### 2c. Used a library called `image_picker` to pick photos from phone gallery.
 
+```dart
+String image = '';
 
-### Rendering list of profile attributes (name, phone, email, bio)
+Future<void> _pickImage() async {
+  try {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    
+    setState(() => this.image = image.path);
+  } catch (e) {
+    print(e);
+  }
+}
+```
+
+<br>
+<br>
+
+### 3) Rendering list of profile attributes (name, phone, email, bio)
 
 <img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/ee28fc1a-9a37-49b9-ae89-32ce277855cb" alt="usage" height="200">
 
-###
+<br>
+<br>
 
-1) Firstly, I created a class that holds the label, text(value of attribute), the view of the corresponding attribute:
+#### 3a. Firstly, I created a class that holds the label, text(value of attribute), the view of the corresponding attribute:
 
 ```dart
 class ProfileItem {
@@ -117,7 +230,7 @@ class ProfileItem {
 
 ```
 
-2) I created a `List` that holds all of the attributes.
+#### 3b. I created a `List` that holds all of the attributes.
 
 ```dart
 List<ProfileItem> editProfileAttributes(BuildContext context) {
@@ -143,32 +256,32 @@ List<ProfileItem> editProfileAttributes(BuildContext context) {
 }
 ```
 
-3) I created a `container Widget` that maps over the list to create tappable `child Widgets`.
+#### 3c. I created a `container Widget` that maps over the list to create tappable `child Widgets`.
 
 ```dart
-  Widget _editProfileList(BuildContext context) {
-    List<ProfileItem> items = editProfileAttributes(context);
+Widget _editProfileList(BuildContext context) {
+  List<ProfileItem> items = editProfileAttributes(context);
 
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: Column(children: items.map((item) => _editProfileItem(context, item)).toList()),
-    );
-  }
+  return Container(
+    padding: const EdgeInsets.all(10),
+    child: Column(children: items.map((item) => _editProfileItem(context, item)).toList()),
+  );
+}
 ```
 
-4) Tapping on the `child Widgets` (profile attribute - name, phone, email, bio) will navigate to its corresponding edit view.
+#### 3d. Tapping on the `child Widgets` (profile attribute - name, phone, email, bio) will navigate to its corresponding edit view.
 
 ```dart
-  Widget _editProfileItem(BuildContext context, ProfileItem item) {
-    return Builder(builder: (context) {
-      return Container(
-        child: InkWell(
-          onTap: () => navigate(context, item.editPageBuilder()),
-        ),
-        // ...
-      );
-    });
-  }
+Widget _editProfileItem(BuildContext context, ProfileItem item) {
+  return Builder(builder: (context) {
+    return Container(
+      child: InkWell(
+        onTap: () => navigate(context, item.editPageBuilder()),
+      ),
+      // ...
+    );
+  });
+}
 ```
 
 
