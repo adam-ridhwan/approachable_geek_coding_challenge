@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// reusable navigator
 void navigate(BuildContext context, Widget destinationPage) {
   Navigator.of(context).push(
     PageRouteBuilder(

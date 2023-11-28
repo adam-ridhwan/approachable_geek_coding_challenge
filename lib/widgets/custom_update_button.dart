@@ -10,10 +10,6 @@ import 'package:provider/provider.dart';
 /// state. When in a loading state, the button displays a 'Updating...' text and
 /// becomes disabled. Otherwise, it shows the 'Update' text and can be pressed.
 ///
-/// The button is designed to take up the full width of its container and has a
-/// fixed height. The glow effect and colors are managed by the `GlowButton` widget
-/// from the `flutter_glow` package.
-///
 /// Parameters:
 ///   and shows the loading text. If false, it functions as a normal button.
 /// - [VoidCallback onPressed]: The callback function that is called when the button

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'common_functions.dart';
 
+// updates the selected profile attribute
 class UpdateProfileAttributeUtility {
   static Future<void> updateProfileAttribute(
     BuildContext context,

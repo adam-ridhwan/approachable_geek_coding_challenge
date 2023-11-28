@@ -29,8 +29,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
 
-      final imageTemporary = image.path;
-      setState(() => this.image = imageTemporary);
+      setState(() => this.image = image.path);
     } catch (e) {
       print(e);
     }
