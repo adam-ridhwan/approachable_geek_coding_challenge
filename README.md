@@ -27,7 +27,12 @@ This project is a coding challenge and the task is to create a profile page, whi
 
 ## Technology Stack
 
-For this coding challenge, I used Flutter to create the profile page using MVC software pattern. I had no prior knowledge on Flutter before starting this project. So I had to spend a spend a day to learn the basics. I was able to pick it up pretty quickly and was able to completed the requirements for the coding challenge.
+<img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/2fde4467-1d8d-4dc1-96b3-d0412f744879" alt="usage" height="100">
+
+<br>
+<br>
+
+For this coding challenge, I used **Flutter** to create the profile page using MVC design pattern. I had no prior knowledge on Flutter before starting this project. So I had to spend a spend a day to learn the basics. I was able to pick it up pretty quickly and was able to completed the requirements for the coding challenge.
 
 <br>
 
