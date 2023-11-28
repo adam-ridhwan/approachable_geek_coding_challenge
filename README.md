@@ -1,16 +1,25 @@
-# approachable_geek_coding_challenge
+# Approachable Geek Coding Challenge
 
-A new Flutter project.
+This repository contains the source code for the Approachable Geek Coding Challenge by Adam Ridhwan
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will get you a copy of the project up and running on your machine for testing purposes.
 
-A few resources to get you started if this is your first Flutter project:
+### Cloning the Repository
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+To clone the project, run the following command in the terminal: 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+git clone https://github.com/adam-ridhwan/approachable_geek_coding_challenge.git
+```
+
+### Installing Dependencies 
+
+Once the project is cloned, navigate to the project directory and run the following command to install all the 
+necessary dependencies:
+
+```bash
+cd approachable_geek_coding_challenge
+flutter pub get
+```
