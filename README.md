@@ -4,6 +4,20 @@ This repository contains the source code for the Approachable Geek Coding Challe
 
 <br>
 
+- [Project Description](#project-description)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+  - [Cloning the Repository](#1-cloning-the-repository)
+  - [Installing Dependencies](#2-installing-dependencies)
+- [Usage](#usage)
+- [Features](#features)
+  - [The Setup](#1-the-setup)
+  - [Changing Profile Picture](#2-changing-profile-picture)
+  - [Rendering List of Profile Attributes](#3-rendering-list-of-profile-attributes)
+- [Utilities](#utilities)
+- [Author](#author)
+
+
 ## Project Description
 
 This project is a coding challenge and the task is to create a profile page, which allows users to navigate to an edit page that allows them to edit their profile information: name, number, email, and bio. Users are also able to edit their profile photo.
