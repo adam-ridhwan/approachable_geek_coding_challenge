@@ -58,7 +58,7 @@ Below are some code example on the features I implemented:
 
 ### 1) The setup
 
-1a. I created the `User` model.
+1.1) I created the `User` model.
 
 ```dart
 class User {
@@ -80,7 +80,7 @@ class User {
 }
 ```
 
-1b. I created the `UserController` that handles the updating the `User` model.
+1.2) I created the `UserController` that handles the updating the `User` model.
 
 ```dart
 import 'package:approachable_geek_coding_challenge/models/user.dart';
@@ -123,7 +123,7 @@ class UserController extends ChangeNotifier {
 }
 ```
 
-1c. I initialized the default `User` in `main.dart`.
+1.3) I initialized the default `User` in `main.dart`.
 
 ```dart
 void main() {
@@ -159,13 +159,13 @@ void main() {
 <br>
 <br>
 
-2a. I first added an image to the assets folder:
+2.1) I first added an image to the assets folder:
 
 ```dart
   assets/avatar.png
 ```
 
-2b. I created an avatar image using `AssetImage`
+2.2) I created an avatar image using `AssetImage`
 
 <img src="https://github.com/adam-ridhwan/approachable_geek_coding_challenge/assets/76563028/e7a236b7-121b-49f1-9cc8-b9164c3c4015" alt="usage" height="100">
 
@@ -197,7 +197,7 @@ Widget _avatarImage(BuildContext context) {
 }
 ```
 
-2c. Used a library called `image_picker` to pick photos from phone gallery.
+2.3) Used a library called `image_picker` to pick photos from phone gallery.
 
 ```dart
 String image = '';
@@ -223,7 +223,7 @@ Future<void> _pickImage() async {
 <br>
 <br>
 
-3a. Firstly, I created a class that holds the label, text(value of attribute), the view of the corresponding attribute:
+3.1) Firstly, I created a class that holds the label, text(value of attribute), the view of the corresponding attribute:
 
 ```dart
 class ProfileItem {
@@ -239,7 +239,7 @@ class ProfileItem {
 }
 ```
 
-3b. I created a `List` that holds all of the attributes.
+3.2) I created a `List` that holds all of the attributes.
 
 ```dart
 List<ProfileItem> editProfileAttributes(BuildContext context) {
@@ -265,7 +265,7 @@ List<ProfileItem> editProfileAttributes(BuildContext context) {
 }
 ```
 
-3c. I created a `container Widget` that maps over the list to create tappable `child Widgets`.
+3.3) I created a `container Widget` that maps over the list to create tappable `child Widgets`.
 
 ```dart
 Widget _editProfileList(BuildContext context) {
@@ -278,7 +278,7 @@ Widget _editProfileList(BuildContext context) {
 }
 ```
 
-3d. Tapping on the `child Widgets` (profile attribute - name, phone, email, bio) will navigate to its corresponding edit view.
+3.4) Tapping on the `child Widgets` (profile attribute - name, phone, email, bio) will navigate to its corresponding edit view.
 
 ```dart
 Widget _editProfileItem(BuildContext context, ProfileItem item) {
