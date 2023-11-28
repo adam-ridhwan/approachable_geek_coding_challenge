@@ -56,7 +56,7 @@ Below is demo of how editing each profile attribute works.
 
 Below are some code example on the features I implemented: 
 
-### 1) The setup:
+### 1) The setup
 
 1a. I created the `User` model.
 
